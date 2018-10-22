@@ -26,11 +26,13 @@ public class Probability {
 
     @Transient
     public void increase(){
+        if (probability < 100)
         probability++;
     }
 
     @Transient
     public void decrease(){
-        probability--;
+        if (probability > 0)
+            probability--;
     }
 }

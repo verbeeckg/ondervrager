@@ -10,18 +10,17 @@
 <body>
 <div th:replace="fragments/header :: header"/>
 <div class="container">
+
     <table class="table table-striped">
         <tr>
             <th>Lijst naam</th>
-            <th><a th:href="@{/lists/add}" class="btn btn-primary">Add</a> </th>
+            <th>&nbsp;</th>
         </tr>
         <tr th:each="wordList: ${wordLists}">
             <td th:text="${wordList.title}">Title</td>
-            <td><a th:href="@{/lists/edit/__${wordList.id}__}" class="btn btn-warning">Edit</a>
-                <a th:href="@{/lists/delete/__${wordList.id}__}" class="btn btn-danger">Delete</a></td>
+            <td><a th:href="@{/ondervraag/list/__${wordList.id}__}" class="btn btn-primary">Ondervraag</a></td>
         </tr>
     </table>
-</div>
 
-</body>
-</html>
+
+</div>

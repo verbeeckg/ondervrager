@@ -7,9 +7,11 @@ import be.verbeeck.ondervrager.model.Word;
 import be.verbeeck.ondervrager.model.WordList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+@Profile("loc")
 @Service
 public class InsertDummyData {
 
