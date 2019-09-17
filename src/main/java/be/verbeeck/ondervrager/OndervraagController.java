@@ -15,6 +15,9 @@ public class OndervraagController {
     private WordListRepository wordListRepository;
 
     @Autowired
+    private WordRepository wordRepository;
+
+    @Autowired
     private OndervraagService ondervraagService;
 
     @GetMapping("/")
@@ -23,16 +26,34 @@ public class OndervraagController {
         return "choseWordList";
     }
 
-    @RequestMapping("/ondervraag/list/{id}")
+    @RequestMapping(path = {"/ondervraag/list/{id}", "/ondervraag/list/{id}/nbWords/{nbWords}"})
     public String ondervraag(Map<String, Object> model, @PathVariable(required = true,name="id") Long id, @PathVariable(required = false ,name="nbWords") Optional<Integer> nbWords){
         model.put("words", ondervraagService.getWordsToOndervraag(wordListRepository.findById(id).orElseThrow(RuntimeException::new), nbWords.orElse(20)));
+        return "ondervraag";
+    }
+
+    @RequestMapping(path = {"/ondervraag/leastQuestioned", "/ondervraag/leastQuestioned/nbWords/{nbWords}"})
+    public String ondervraagLeastQuestionedWords(Map<String, Object> model, @PathVariable(required = false ,name="nbWords") Optional<Integer> nbWords) {
+        model.put("words", ondervraagService.getWordsLeastQuestioned(wordRepository.findAll(), nbWords.orElse(15)));
+        return "ondervraag";
+    }
+
+    @RequestMapping(path = {"/ondervraag/leastGoodMinusWrong", "/ondervraag/leastGoodMinusWrong/nbWords/{nbWords}"})
+    public String ondervraagLeastGoodMinusWrongWords(Map<String, Object> model, @PathVariable(required = false ,name="nbWords") Optional<Integer> nbWords) {
+        model.put("words", ondervraagService.getWordsSmallestGoodMinusWrong(wordRepository.findAll(), nbWords.orElse(15)));
+        return "ondervraag";
+    }
+
+    @RequestMapping(path = {"/ondervraag/leastGoodDividedByWrong", "/ondervraag/leastGoodDividedByWrong/nbWords/{nbWords}"})
+    public String ondervraagLeastGoodDividedByWrongWords(Map<String, Object> model, @PathVariable(required = false ,name="nbWords") Optional<Integer> nbWords) {
+        model.put("words", ondervraagService.getWordsSmallestGoodDevidedByWrong(wordRepository.findAll(), nbWords.orElse(15)));
         return "ondervraag";
     }
 
     @RequestMapping( value = "/ondervraag/word/succes", method = RequestMethod.POST)
     public @ResponseBody String wordCorrect(@RequestBody String  response, Long id){
         Word word = ondervraagService.getWordById(id);
-        word.increaseProbability();
+        word.increaseNbCorrect();
         ondervraagService.updateWord(word);
         return "OK";
     }
@@ -40,23 +61,8 @@ public class OndervraagController {
     @RequestMapping( value = "/ondervraag/word/failed", method = RequestMethod.POST)
     public @ResponseBody String wordIncorrect(@RequestBody String  response, Long id){
         Word word = ondervraagService.getWordById(id);
-        word.decreaseProbability();
+        word.increaseNbErrors();
         ondervraagService.updateWord(word);
         return "NOK";
     }
-// @RequestMapping( value = "/ondervraag/word/succes", method = RequestMethod.POST)
-//    public String wordCorrect(Map<String, Object> model, Long id){
-//        Word word = ondervraagService.getWordById(id);
-//        word.increaseProbability();
-//        ondervraagService.updateWord(word);
-//        return "redirect:/ondervraag/list/"+word.getWordList().getId();
-//    }
-//
-//    @RequestMapping(value = "/ondervraag/word/failed", method = RequestMethod.POST)
-//    public String wordIncorrect(Map<String, Object> model, Long id){
-//        Word word = ondervraagService.getWordById(id);
-//        word.decreaseProbability();
-//        ondervraagService.updateWord(word);
-//        return "redirect:/ondervraag/list/"+word.getWordList().getId();
-//    }
 }

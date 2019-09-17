@@ -44,11 +44,17 @@
             <th>Woord</th>
             <th th:width="20">&nbsp;</th>
             <th th:width="20">&nbsp;</th>
+            <th>#gevraagd</th>
+            <th>#juist</th>
+            <th>#fout</th>
         </tr>
         <tr th:each="word: ${words}" th:id="'row'+${word.id}" >
             <td th:text="${word.wordValue}" th:id="'text'+${word.id}">Woord</td>
             <td><button type="submit" class="btn btn-success" th:onclick="'javascript:sendResultOk('+ ${word.id} + ')'" value="Juist" th:id="'buttonOk'+${word.id}">Juist</button></td>
-            <td><button type="submit" class="btn btn-danger" th:onclick="'javascript:sendResultNok('+ ${word.id} + ')'" value="Juist" th:id="'buttonNok'+${word.id}">Niet Juist</button></td>
+            <td><button type="submit" class="btn btn-danger" th:onclick="'javascript:sendResultNok('+ ${word.id} + ')'" value="Fout" th:id="'buttonNok'+${word.id}">Niet Juist</button></td>
+            <td th:text="${word.getNbQuestioned()}" th:id="'text'+${word.id}">Gevraagd</td>
+            <td th:text="${word.getNbCorrect()}" th:id="'text'+${word.id}">Juist</td>
+            <td th:text="${word.getNbErrors()}" th:id="'text'+${word.id}">Fout</td>
         </tr>
     </table>
 

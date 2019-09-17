@@ -11,14 +11,12 @@ public class Word {
 
     private String wordValue;
 
-    @Embedded
-    private Probability probability = new Probability();
-
     @ManyToOne
     @JoinColumn(name = "wordListId")
     private WordList wordList;
 
     private int nbErrors;
+    private int nbCorrect;
 
     public long getId() {
         return id;
@@ -44,12 +42,12 @@ public class Word {
         this.nbErrors = nbErrors;
     }
 
-    public Probability getProbability() {
-        return probability;
+    public int getNbCorrect() {
+        return nbCorrect;
     }
 
-    public void setProbability(Probability probability) {
-        this.probability = probability;
+    public void setNbCorrect(int nbCorrect) {
+        this.nbCorrect = nbCorrect;
     }
 
     public WordList getWordList() {
@@ -61,12 +59,30 @@ public class Word {
     }
 
     @Transient
-    public void increaseProbability(){
-        getProbability().increase();
+    public void increaseNbErrors() {
+        nbErrors++;
     }
 
     @Transient
-    public void decreaseProbability(){
-        getProbability().decrease();
+    public void increaseNbCorrect(){
+        nbCorrect++;
+    }
+
+    @Transient
+    public int getNbQuestioned(){
+        return getNbErrors() + getNbCorrect();
+    }
+
+    @Transient
+    public int getGoodMinusWrong(){
+        return getNbCorrect() - getNbErrors();
+    }
+
+    @Transient
+    public int getGoodDevidedByWrong(){
+        if (getNbErrors() != 0){
+            return getNbCorrect() / getNbErrors();
+        }
+        return getNbCorrect();
     }
 }

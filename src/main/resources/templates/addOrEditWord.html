@@ -18,8 +18,14 @@
             <label>Woord</label>
             <input type="text" th:field="*{wordValue}" class="form-control" autofocus/>
 
-            <label>Kans</label>
-            <input type="text" th:field="*{probability.probability}" class="form-control" autofocus/>
+            <label>Aantal keer juist</label>
+            <input type="text" th:field="*{nbCorrect}" class="form-control" autofocus/>
+
+            <label>Aantal keer fout</label>
+            <input type="text" th:field="*{nbErrors}" class="form-control" autofocus/>
+
+            <!--<label>Kans</label>-->
+            <!--<input type="text" th:field="*{probability.probability}" class="form-control" autofocus/>-->
         </div>
         <a href="#" th:href="@{/lists/edit/__${word.wordList.id}__}" class="btn btn-secondary" role="button">Cancel</a>
         <input type="submit" class="btn btn-success" value="Save"/>

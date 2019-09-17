@@ -25,12 +25,14 @@
         <table id="words" class="table table-striped">
             <tr>
                 <th>Woord</th>
-                <th>Kans</th>
+                <th>Aantal keer juist</th>
+                <th>Aantal keer fout</th>
                 <th><a th:href="@{/lists/__${wordList.id}__/word/add}" class="btn btn-primary">Add</a> </th>
             </tr>
             <tr th:each="word: ${wordList.getWords()}">
                 <td th:text="${word.getWordValue()}"></td>
-                <td th:text="${word.getProbability().getProbability()}"></td>
+                <td th:text="${word.getNbCorrect()}"></td>
+                <td th:text="${word.getNbErrors()}"></td>
                 <td>
                     <a th:href="@{/word/edit/__${word.id}__}" class="btn btn-warning">Edit</a>
                     <a th:href="@{/word/delete/__${word.id}__}" class="btn btn-danger">Delete</a>

@@ -13,6 +13,25 @@
 
     <table class="table table-striped">
         <tr>
+            <th>Ondervragen</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>Minst ondervraagde woorden</td>
+            <td><a th:href="@{/ondervraag/leastQuestioned}" class="btn btn-primary">Ondervraag</a></td>
+        </tr>
+        <tr>
+            <td>Minst goed - fout woorden</td>
+            <td><a th:href="@{/ondervraag/leastGoodMinusWrong}" class="btn btn-primary">Ondervraag</a></td>
+        </tr>
+        <tr>
+            <td>Minst goed / fout woorden</td>
+            <td><a th:href="@{/ondervraag/leastGoodDividedByWrong}" class="btn btn-primary">Ondervraag</a></td>
+        </tr>
+    </table>
+
+    <table class="table table-striped">
+        <tr>
             <th>Lijst naam</th>
             <th>&nbsp;</th>
         </tr>
