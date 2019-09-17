@@ -47,7 +47,7 @@ public class OndervraagService {
     }
 
     public Word getWordById(Long id){
-        return wordRepository.findById(id).orElseThrow();
+        return wordRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     public void updateWord(Word word) {

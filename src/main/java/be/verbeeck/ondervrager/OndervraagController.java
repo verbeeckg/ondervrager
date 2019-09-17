@@ -25,7 +25,7 @@ public class OndervraagController {
 
     @RequestMapping("/ondervraag/list/{id}")
     public String ondervraag(Map<String, Object> model, @PathVariable(required = true,name="id") Long id, @PathVariable(required = false ,name="nbWords") Optional<Integer> nbWords){
-        model.put("words", ondervraagService.getWordsToOndervraag(wordListRepository.findById(id).orElseThrow(), nbWords.orElse(20)));
+        model.put("words", ondervraagService.getWordsToOndervraag(wordListRepository.findById(id).orElseThrow(RuntimeException::new), nbWords.orElse(20)));
         return "ondervraag";
     }
 

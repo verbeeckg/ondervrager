@@ -29,7 +29,7 @@ public class WordController {
     @RequestMapping("/lists/{listId}/word/add")
     public String addWord(Map<String,Object> model, @PathVariable(required = true,name="listId") Long listId){
         Word word = new Word();
-        word.setWordList(wordListRepository.findById(listId).orElseThrow());
+        word.setWordList(wordListRepository.findById(listId).orElseThrow(RuntimeException::new));
         model.put("word", word);
         return "addOrEditWord";
     }
