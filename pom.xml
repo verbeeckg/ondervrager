@@ -5,7 +5,7 @@
 
 	<groupId>be.verbeeck</groupId>
 	<artifactId>ondervrager</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>ondervrager</name>
@@ -21,7 +21,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>10</java.version>
+		<java.version>11</java.version>
 	</properties>
 
 	<dependencies>
@@ -80,6 +80,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>8</source>
+					<target>8</target>
+				</configuration>
 			</plugin>
 		</plugins>
 		<resources>
@@ -93,7 +104,7 @@
 	<repositories>
 		<repository>
 			<id>public</id>
-			<url>https://repo.maven.apache.org/maven2</url>
+			<url>http://central.maven.org/maven2/</url>
 			<layout>default</layout>
 			<name>public repository</name>
 		</repository>
@@ -116,10 +127,16 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>prod</id>
+			<id>prd</id>
 			<properties>
-				<spring.profiles.active>prod</spring.profiles.active>
+				<spring.profiles.active>prd</spring.profiles.active>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+				</dependency>
+			</dependencies>
 		</profile>
 	</profiles>
 
